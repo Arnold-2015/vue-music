@@ -14,6 +14,7 @@
   import api from '../../../api/index';
   import vCard from '../../../components/card/playListCard.vue';
   export default {
+    name: 'v-play-list',
     data() {
       return {
         imgId: '',

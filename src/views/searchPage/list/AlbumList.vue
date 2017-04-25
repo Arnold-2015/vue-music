@@ -14,6 +14,7 @@
   import api from '../../../api/index';
   import vCard from '../../../components/card/albumCard.vue';
   export default {
+    name: 'v-album-list',
     data() {
       return {
         imgId: '',

@@ -15,6 +15,7 @@
     import vCard from '../../../components/card/singleCard.vue';
     import { mapGetters } from 'vuex';
     export default {
+        name: 'v-single-list',
         data() {
             return {
               imgId: '',

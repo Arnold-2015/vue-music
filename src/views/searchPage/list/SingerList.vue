@@ -14,6 +14,7 @@
     import api from '../../../api/index';
     import vCard from '../../../components/card/singerCard.vue';
     export default {
+      name: 'v-singer-list',
         data() {
             return {
               imgId: '',

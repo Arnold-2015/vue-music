@@ -10,8 +10,9 @@ import {loadFromlLocal} from './common/js/store'; // 公共方法：本地缓存
 import MuseUI from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
 import 'assets/theme.less';
-import vueScrollevent from 'vue-scrollevent';
-Vue.use(vueScrollevent);
+import Mint from 'mint-ui';
+import 'mint-ui/lib/style.css';
+Vue.use(Mint);
 Vue.use(VueRouter);
 Vue.use(MuseUI);
 Vue.use(infiniteScroll);

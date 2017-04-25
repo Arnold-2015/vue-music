@@ -15,63 +15,85 @@
         <!--</div>-->
       </div>
       <div v-else class="search-list">
+        <!--<div class="fixed-bar">-->
+          <!--<mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">-->
+            <!--<mu-tab value="singleList" title="单曲"/>-->
+            <!--<mu-tab value="singerLists" title="歌手"/>-->
+            <!--<mu-tab value="albumLists" title="专辑"/>-->
+            <!--<mu-tab value="playLists" title="歌单"/>-->
+            <!--<mu-tab value="userLists" title="用户"/>-->
+          <!--</mu-tabs>-->
+        <!--</div>-->
         <div class="fixed-bar">
-          <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
-            <mu-tab value="singleList" title="单曲"/>
-            <mu-tab value="singerLists" title="歌手"/>
-            <mu-tab value="albumLists" title="专辑"/>
-            <mu-tab value="playLists" title="歌单"/>
-            <mu-tab value="userLists" title="用户"/>
-          </mu-tabs>
+          <mt-button @click.native.prevent="active = 'single'">单曲</mt-button>
+          <mt-button @click.native.prevent="active = 'singer'">歌手</mt-button>
+          <mt-button @click.native.prevent="active = 'album'">专辑</mt-button>
+          <mt-button @click.native.prevent="active = 'playlist'">歌单</mt-button>
+          <mt-button @click.native.prevent="active = 'user'">用户</mt-button>
         </div>
-        <div class="default-view">
-            <router-view></router-view>
-        </div>
+        <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
+          <mt-tab-container-item id="single">
+            <v-single-list></v-single-list>
+          </mt-tab-container-item>
+          <mt-tab-container-item id="singer">
+            <v-singer-list></v-singer-list>
+          </mt-tab-container-item>
+          <mt-tab-container-item id="album">
+            <v-album-list></v-album-list>
+          </mt-tab-container-item>
+          <mt-tab-container-item id="playlist">
+            <v-play-list></v-play-list>
+          </mt-tab-container-item>
+          <mt-tab-container-item id="user">
+            <v-user-list></v-user-list>
+          </mt-tab-container-item>
+        </mt-tab-container>
       </div>
     </div>
   </transition>
-
 </template>
-
 <script>
-export default {
-  name: 'search',
-  data () {
-    return {
-      keywords: '',
-      isShowHot: true,
-      activeTab: 'singleList'
-    };
-  },
-  methods: {
-    goBack () {
-      this.$router.push({
-        path: '/find'
-      });
+  import vSingleList from './list/SingleList.vue';
+  import vSingerList from './list/SingerList.vue';
+  import vAlbumList from './list/AlbumList.vue';
+  import vPlayList from './list/PlayList.vue';
+  import vUserList from './list/UserList.vue';
+  export default {
+    name: 'search',
+    data () {
+      return {
+        keywords: '',
+        isShowHot: true,
+        active: 'single'
+      };
     },
-    toSearch (keywords) {
-      this.isShowHot = false;
-      if (this.keywords.trim()) {
-        this.activeTab = 'singleList';
+    methods: {
+      goBack () {
         this.$router.push({
-          path: '/search/singleList',
-          query: {
-            keywords: keywords
-          }
+          path: '/find'
         });
+      },
+      toSearch (keywords) {
+        this.isShowHot = false;
+        if (this.keywords.trim()) {
+          this.activeTab = 'singleList';
+          this.$router.push({
+            path: '/search/singleList',
+            query: {
+              keywords: keywords
+            }
+          });
+        }
       }
     },
-    handleTabChange (val) {
-      this.activeTab = val;
-      this.$router.push({
-        path: '/search/' + val,
-        query: {
-          keywords: this.keywords
-        }
-      });
+    components: {
+      vSingleList,
+      vSingerList,
+      vAlbumList,
+      vPlayList,
+      vUserList
     }
-  }
-};
+  };
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @import "search.styl";

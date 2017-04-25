@@ -14,6 +14,7 @@
   import api from '../../../api/index';
   import vCard from '../../../components/card/userCard.vue';
   export default {
+    name: 'v-user-list',
     data() {
       return {
         imgId: '',
